@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dentra — WhatsApp Assistant for Dental Clinics</title>
+  <meta name="description" content="Dentra helps dental clinics recover missed calls and reduce no-shows via WhatsApp — automatically, without replacing your receptionist." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #0D9488;
+      --teal-dark: #0F766E;
+      --teal-light: #CCFBF1;
+      --slate: #1E293B;
+      --muted: #64748B;
+      --bg: #F8FAFC;
+      --white: #FFFFFF;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--slate);
+      line-height: 1.6;
+    }
+
+    a { color: var(--teal); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      background: var(--white);
+      border-bottom: 1px solid #E2E8F0;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--teal);
+      letter-spacing: -0.5px;
+    }
+    .nav-contact {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 80px 24px 64px;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+    h1 {
+      font-size: clamp(1.75rem, 5vw, 2.75rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+      color: var(--slate);
+    }
+    h1 span { color: var(--teal); }
+    .hero p {
+      font-size: 1.125rem;
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 36px;
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 8px;
+      transition: background 0.15s;
+    }
+    .cta-btn:hover { background: var(--teal-dark); text-decoration: none; }
+
+    /* PROBLEMS */
+    .section {
+      padding: 64px 24px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      margin-bottom: 12px;
+    }
+    .section-intro {
+      color: var(--muted);
+      font-size: 1rem;
+      margin-bottom: 40px;
+      max-width: 600px;
+    }
+
+    /* CARDS */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background: var(--white);
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 28px;
+    }
+    .card-icon {
+      font-size: 1.75rem;
+      margin-bottom: 12px;
+    }
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* HOW IT WORKS */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .step {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .step-num {
+      width: 36px;
+      height: 36px;
+      background: var(--teal-light);
+      color: var(--teal-dark);
+      font-weight: 700;
+      font-size: 0.875rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .step h3 { font-size: 0.95rem; font-weight: 700; }
+    .step p { font-size: 0.875rem; color: var(--muted); }
+
+    /* DIVIDER */
+    hr { border: none; border-top: 1px solid #E2E8F0; margin: 0 24px; }
+
+    /* CONTACT */
+    .contact-section {
+      background: var(--white);
+      border-top: 1px solid #E2E8F0;
+      text-align: center;
+      padding: 64px 24px;
+    }
+    .contact-section h2 { margin-bottom: 12px; }
+    .contact-section p { color: var(--muted); margin-bottom: 24px; }
+    .contact-email {
+      display: inline-block;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--teal);
+      padding: 12px 28px;
+      border: 2px solid var(--teal);
+      border-radius: 8px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .contact-email:hover {
+      background: var(--teal);
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.8rem;
+      color: #94A3B8;
+      border-top: 1px solid #E2E8F0;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Dentra</div>
+    <div class="nav-contact"><a href="mailto:ome450901@gmail.com">ome450901@gmail.com</a></div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-badge">WhatsApp for Dental Clinics</div>
+    <h1>Never miss a patient<br><span>who tried to call you</span></h1>
+    <p>
+      Dentra automatically follows up on missed calls and sends appointment reminders via WhatsApp — so your clinic fills its schedule without extra work.
+    </p>
+    <a class="cta-btn" href="mailto:ome450901@gmail.com">Get in touch</a>
+  </section>
+
+  <hr />
+
+  <!-- PROBLEMS WE SOLVE -->
+  <section class="section">
+    <div class="section-label">The problem</div>
+    <h2>Two things silently cost every clinic</h2>
+    <p class="section-intro">Most clinics lose revenue from the same two issues — and neither requires new software to fix.</p>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📵</div>
+        <h3>Missed calls = lost patients</h3>
+        <p>A patient calls, gets no answer, and books with a competitor. Dentra sends them a WhatsApp within 15 seconds so you stay top of mind.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🪑</div>
+        <h3>No-shows waste chair time</h3>
+        <p>Empty slots are the most expensive thing in dentistry. Automated reminders at 24h and 2h — with a single-tap confirm button — slash the no-show rate.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <div class="section-label">How it works</div>
+    <h2>Simple for your team, seamless for patients</h2>
+    <p class="section-intro">Dentra runs quietly in the background. No new app for your receptionist, no new app for the patient.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Missed call detected</h3>
+        <p>A call goes unanswered. Dentra catches the number automatically.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>WhatsApp sent in seconds</h3>
+        <p>The patient receives a friendly message offering to book or request a callback.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Patient books via chat</h3>
+        <p>A guided conversation collects name, preferred time, and reason for visit.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Receptionist confirms</h3>
+        <p>The team gets a notification and confirms with one tap. The booking is theirs to control.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">5</div>
+        <h3>Reminders go out automatically</h3>
+        <p>24h and 2h before the appointment, the patient gets a reminder with confirm/cancel buttons.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- WHAT WE DON'T DO -->
+  <section class="section">
+    <div class="section-label">Our philosophy</div>
+    <h2>We assist the receptionist — we don't replace them</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">✅</div>
+        <h3>Humans confirm every booking</h3>
+        <p>Dentra creates a booking request. Your receptionist reviews and confirms before anything is locked in.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">💬</div>
+        <h3>Everything stays in WhatsApp</h3>
+        <p>No new apps for patients. They use the messaging app already on their phone.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔒</div>
+        <h3>Opt-out respected</h3>
+        <p>Any patient can reply STOP at any time. No messages are ever sent to opted-out numbers.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section">
+    <h2>Want to see it in action?</h2>
+    <p>Reach out and we'll walk you through a live demo for your clinic.</p>
+    <a class="contact-email" href="mailto:ome450901@gmail.com">ome450901@gmail.com</a>
+  </section>
+
+  <footer>
+    &copy; 2026 Dentra. All rights reserved.
+  </footer>
+
+</body>
+</html>
