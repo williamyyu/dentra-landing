@@ -7,32 +7,35 @@
 <meta name="description" content="Dentra helps dental clinics recover missed calls and reduce no-shows via WhatsApp — automatically, without replacing your receptionist.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
   body {
-    font-family: 'Inter', sans-serif;
-    background: #f4f3f0;
+    font-family: 'Barlow', sans-serif;
+    background: #edeae5;
     color: #1a1a1a;
-    font-size: 13.5px;
+    font-size: 14px;
     line-height: 1.6;
   }
 
   .page {
     max-width: 900px;
-    margin: 32px auto;
-    padding: 52px 60px 44px;
+    margin: 40px auto;
+    padding: 56px 64px 48px;
     background: #fff;
-    box-shadow: 0 2px 24px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.1);
     border-radius: 4px;
+    animation: fadeUp 0.5s ease both;
   }
 
   @media (max-width: 700px) {
-    .page { margin: 0; padding: 32px 24px 32px; border-radius: 0; }
-    .two-col { flex-direction: column; }
-    .col-right { flex: unset; width: 100%; }
-    .stats-row { flex-direction: column; }
+    .page { margin: 0; padding: 28px 20px 40px; border-radius: 0; }
   }
 
   /* ── Header ── */
@@ -40,27 +43,28 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    margin-bottom: 28px;
-    padding-bottom: 14px;
+    margin-bottom: 36px;
+    padding-bottom: 20px;
     border-bottom: 1px solid #e8e8e8;
   }
 
   .logo {
     font-family: 'Playfair Display', serif;
-    font-size: 32px;
-    font-weight: 400;
-    color: #b0b0b0;
+    font-size: 34px;
+    font-weight: 700;
+    color: #1a1a1a;
     letter-spacing: -0.5px;
     line-height: 1;
   }
 
-  .logo-sub {
-    font-family: 'Inter', sans-serif;
-    font-size: 11.5px;
-    font-style: italic;
-    color: #999;
-    margin-top: 5px;
-    font-weight: 300;
+  .logo-tagline {
+    font-family: 'Barlow', sans-serif;
+    font-size: 14px;
+    color: #666;
+    margin-top: 8px;
+    font-weight: 400;
+    line-height: 1.4;
+    max-width: 300px;
   }
 
   .header-right {
@@ -69,7 +73,7 @@
     letter-spacing: 2px;
     color: #aaa;
     font-weight: 400;
-    line-height: 1.7;
+    line-height: 1.8;
     text-transform: uppercase;
   }
 
@@ -79,22 +83,23 @@
     font-weight: 600;
     letter-spacing: 2.5px;
     text-transform: uppercase;
-    color: #c0392b;
-    margin-bottom: 10px;
+    color: #999;
+    margin-bottom: 12px;
   }
 
   /* ── Problem section ── */
   .problem-section {
-    margin-bottom: 22px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s 0.08s ease both;
   }
 
   .problem-heading {
     font-family: 'Playfair Display', serif;
-    font-size: 30px;
+    font-size: 44px;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.15;
     color: #1a1a1a;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
   }
 
   .problem-heading em {
@@ -103,47 +108,52 @@
   }
 
   .problem-body {
-    font-size: 13px;
-    color: #444;
-    max-width: 620px;
-    line-height: 1.65;
+    font-size: 14px;
+    color: #555;
+    max-width: 600px;
+    line-height: 1.7;
   }
 
   /* ── Stats ── */
   .stats-row {
     display: flex;
-    gap: 12px;
-    margin-top: 16px;
-    margin-bottom: 24px;
+    gap: 0;
+    margin-top: 28px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.5s 0.18s ease both;
   }
 
   .stat-box {
     flex: 1;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    padding: 14px 12px;
-    text-align: center;
+    padding: 4px 28px 4px 28px;
+    border-left: 2px solid #e8e8e8;
+  }
+
+  .stat-box:first-child {
+    border-left: none;
+    padding-left: 0;
   }
 
   .stat-number {
     font-family: 'Playfair Display', serif;
-    font-size: 34px;
+    font-size: 46px;
     font-weight: 700;
-    color: #c0392b;
+    color: #1a1a1a;
     line-height: 1;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
   }
 
   .stat-desc {
-    font-size: 11.5px;
+    font-size: 12px;
     color: #555;
-    line-height: 1.4;
-    margin-bottom: 4px;
+    line-height: 1.45;
+    margin-bottom: 5px;
   }
 
   .stat-source {
     font-size: 9.5px;
-    color: #999;
+    color: #bbb;
     line-height: 1.4;
   }
 
@@ -151,14 +161,14 @@
   hr {
     border: none;
     border-top: 1px solid #e8e8e8;
-    margin: 20px 0;
+    margin: 24px 0;
   }
 
   /* ── Two-column layout ── */
   .two-col {
     display: flex;
-    gap: 28px;
-    margin-bottom: 20px;
+    gap: 32px;
+    margin-bottom: 24px;
   }
 
   .col-left {
@@ -166,33 +176,33 @@
   }
 
   .col-right {
-    flex: 0 0 200px;
+    flex: 0 0 210px;
   }
 
   /* ── Solution text ── */
   .solution-body {
-    font-size: 13px;
+    font-size: 14px;
     color: #333;
-    line-height: 1.65;
-    margin-bottom: 16px;
+    line-height: 1.7;
+    margin-bottom: 20px;
   }
 
   /* ── Steps ── */
   .step {
     display: flex;
-    gap: 10px;
-    margin-bottom: 12px;
+    gap: 12px;
+    margin-bottom: 16px;
     align-items: flex-start;
   }
 
   .step-num {
-    width: 22px;
-    height: 22px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    background: #c0392b;
+    background: #1a1a1a;
     color: #fff;
     font-size: 11px;
-    font-weight: 600;
+    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -203,16 +213,16 @@
   .step-content {}
 
   .step-title {
-    font-size: 13px;
+    font-size: 13.5px;
     font-weight: 600;
     color: #1a1a1a;
-    margin-bottom: 2px;
+    margin-bottom: 3px;
   }
 
   .step-body {
-    font-size: 12px;
+    font-size: 12.5px;
     color: #555;
-    line-height: 1.5;
+    line-height: 1.55;
   }
 
   /* ── Feature badges ── */
@@ -220,15 +230,15 @@
     display: flex;
     flex-wrap: wrap;
     gap: 7px;
-    margin-top: 16px;
+    margin-top: 18px;
   }
 
   .badge {
     border: 1px solid #ccc;
     border-radius: 20px;
-    padding: 4px 11px;
+    padding: 4px 12px;
     font-size: 11.5px;
-    color: #444;
+    color: #555;
   }
 
   /* ── WhatsApp mock ── */
@@ -399,7 +409,7 @@
     border: 1px solid #ddd;
     border-radius: 8px;
     overflow: hidden;
-    margin-bottom: 14px;
+    margin-bottom: 24px;
   }
 
   .comp-header {
@@ -408,7 +418,7 @@
   }
 
   .comp-col-header {
-    padding: 8px 14px;
+    padding: 10px 16px;
     font-size: 10.5px;
     font-weight: 700;
     letter-spacing: 1.5px;
@@ -439,16 +449,16 @@
   }
 
   .comp-cell {
-    padding: 9px 14px;
-    font-size: 12px;
+    padding: 11px 16px;
+    font-size: 12.5px;
     line-height: 1.4;
     display: flex;
     align-items: center;
-    gap: 7px;
+    gap: 8px;
   }
 
   .comp-cell.left {
-    color: #777;
+    color: #888;
     background: #fff;
     border-right: 1px solid #eee;
   }
@@ -465,29 +475,66 @@
 
   /* ── CTA ── */
   .cta-section {
-    background: #fafafa;
-    border: 1px solid #e8e8e8;
+    background: #1a1a1a;
     border-radius: 8px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 24px;
   }
 
+  /* ── Mobile ── */
   @media (max-width: 700px) {
-    .cta-section { flex-direction: column; align-items: flex-start; }
+    /* Header: stack logo + descriptor */
+    .header { flex-direction: column; gap: 14px; margin-bottom: 28px; }
+    .header-right { text-align: left; }
+
+    /* Problem heading: scale down, let text reflow */
+    .problem-heading { font-size: 30px; }
+
+    /* Stats: stack with top border instead of left border */
+    .stats-row { flex-direction: column; gap: 0; }
+    .stat-box { border-left: none; border-top: 2px solid #e8e8e8; padding: 18px 0 4px; }
+    .stat-box:first-child { border-top: none; padding-top: 4px; }
+    .stat-number { font-size: 38px; }
+
+    /* Two-col: solution text then mock */
+    .two-col { flex-direction: column; gap: 24px; }
+    .col-right { width: 100%; }
+
+    /* Comparison: stack before/after within each row */
+    .comp-header { display: none; }
+    .comp-row { grid-template-columns: 1fr; border-top: 1px solid #e8e8e8; }
+    .comp-row:first-of-type { border-top: none; }
+    .comp-cell { padding: 9px 14px; }
+    .comp-cell.left {
+      border-right: none;
+      border-bottom: 1px solid #f0f0f0;
+      background: #fafafa;
+      font-size: 12px;
+    }
+    .comp-cell.right { font-size: 12px; }
+
+    /* CTA: stack and stretch button */
+    .cta-section { flex-direction: column; align-items: stretch; padding: 22px 20px; }
+    .cta-right { text-align: left; }
+    .cta-email { display: block; text-align: center; }
   }
 
   .cta-text {
-    font-size: 13px;
-    color: #444;
+    font-size: 14px;
+    color: #aaa;
     line-height: 1.6;
   }
 
   .cta-text strong {
-    color: #1a1a1a;
+    color: #fff;
+    font-size: 17px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 5px;
   }
 
   .cta-right {
@@ -499,13 +546,14 @@
     display: inline-block;
     background: #c0392b;
     color: #fff;
-    font-size: 12.5px;
+    font-size: 13px;
     font-weight: 600;
-    padding: 9px 18px;
+    padding: 12px 24px;
     border-radius: 4px;
     text-decoration: none;
     letter-spacing: 0.2px;
     white-space: nowrap;
+    transition: background 0.15s;
   }
 
   .cta-email:hover {
@@ -515,16 +563,16 @@
   /* ── Footer ── */
   .footer-note {
     font-size: 9.5px;
-    color: #aaa;
+    color: #bbb;
     line-height: 1.5;
-    margin-bottom: 14px;
+    margin-bottom: 20px;
   }
 
   .footer-logo {
     font-family: 'Playfair Display', serif;
-    font-size: 22px;
-    color: #ccc;
-    font-weight: 400;
+    font-size: 24px;
+    color: #1a1a1a;
+    font-weight: 700;
   }
 
   @media print {
@@ -540,7 +588,7 @@
   <div class="header">
     <div>
       <div class="logo">Dentra.</div>
-      <div class="logo-sub">Every missed call is a patient someone else will see.</div>
+      <div class="logo-tagline">Every missed call is a patient someone else will see.</div>
     </div>
     <div class="header-right">
       WhatsApp-Powered<br>
@@ -553,9 +601,7 @@
   <div class="problem-section">
     <div class="section-label">The Problem</div>
     <div class="problem-heading">
-      Dental clinics are quietly losing<br>
-      <em>tens of thousands of dollars</em> every year —<br>
-      without realising it.
+      Dental clinics are quietly losing <em>tens of thousands of dollars</em> every year — without realising it.
     </div>
     <div class="problem-body" style="margin-top:10px;">
       When a patient calls and nobody answers, they don't wait. They open Google and book with the
@@ -712,7 +758,7 @@
   <!-- CTA -->
   <div class="cta-section">
     <div class="cta-text">
-      <strong>Interested in a pilot?</strong><br>
+      <strong>Interested in a pilot?</strong>
       Dentra is currently onboarding its first dental practices. If you'd like to see how it works at your clinic, get in touch.
     </div>
     <div class="cta-right">
