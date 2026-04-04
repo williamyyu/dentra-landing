@@ -19,22 +19,6 @@
     line-height: 1.6;
   }
 
-  /* ── Top bar ── */
-  .topbar {
-    background: #075e54;
-    color: #fff;
-    text-align: center;
-    padding: 10px 24px;
-    font-size: 12.5px;
-    letter-spacing: 0.02em;
-  }
-  .topbar a {
-    color: #9de0d8;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  .topbar a:hover { text-decoration: underline; }
-
   .page {
     max-width: 900px;
     margin: 32px auto;
@@ -215,6 +199,8 @@
     flex-shrink: 0;
     margin-top: 1px;
   }
+
+  .step-content {}
 
   .step-title {
     font-size: 13px;
@@ -477,36 +463,61 @@
     flex-shrink: 0;
   }
 
-  /* ── CTA block ── */
-  .cta-block {
-    background: #f9f9f7;
-    border: 1px solid #e0e0e0;
+  /* ── CTA ── */
+  .cta-section {
+    background: #fafafa;
+    border: 1px solid #e8e8e8;
     border-radius: 8px;
-    padding: 24px 28px;
-    text-align: center;
-    margin: 20px 0 14px;
+    padding: 20px 24px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
   }
 
-  .cta-block p {
+  @media (max-width: 700px) {
+    .cta-section { flex-direction: column; align-items: flex-start; }
+  }
+
+  .cta-text {
     font-size: 13px;
-    color: #555;
-    margin-bottom: 14px;
+    color: #444;
+    line-height: 1.6;
+  }
+
+  .cta-text strong {
+    color: #1a1a1a;
+  }
+
+  .cta-right {
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .cta-email {
+    display: inline-block;
+    background: #c0392b;
+    color: #fff;
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 4px;
+    text-decoration: none;
+    letter-spacing: 0.2px;
+    white-space: nowrap;
+  }
+
+  .cta-email:hover {
+    background: #a93226;
+  }
+
+  .cta-price {
+    font-size: 10px;
+    color: #999;
+    margin-top: 6px;
     line-height: 1.5;
   }
-
-  .cta-link {
-    display: inline-block;
-    background: #075e54;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 600;
-    padding: 10px 24px;
-    border-radius: 6px;
-    text-decoration: none;
-    letter-spacing: 0.01em;
-  }
-
-  .cta-link:hover { background: #054d45; }
 
   /* ── Footer ── */
   .footer-note {
@@ -524,20 +535,12 @@
   }
 
   @media print {
-    .topbar { display: none; }
-    .cta-block { display: none; }
     body { background: #fff; }
     .page { margin: 0; box-shadow: none; border-radius: 0; padding: 20px 28px; }
   }
 </style>
 </head>
 <body>
-
-<div class="topbar">
-  Want to see Dentra in action? &nbsp;
-  <a href="mailto:ome450901@gmail.com">ome450901@gmail.com</a>
-</div>
-
 <div class="page">
 
   <!-- Header -->
@@ -711,12 +714,100 @@
       <div class="comp-cell left"><span class="comp-icon">💸</span> Empty chair. Lost revenue. No recovery.</div>
       <div class="comp-cell right"><span class="comp-icon">✅</span> Slot filled. Receptionist notified. Revenue protected.</div>
     </div>
+    <div class="comp-row">
+      <div class="comp-cell left"><span class="comp-icon">📵</span> Booked patient doesn't show. No warning. Slot wasted.</div>
+      <div class="comp-cell right"><span class="comp-icon">🔔</span> Automatic reminder 24h before. Patient confirms or cancels in one tap.</div>
+    </div>
+    <div class="comp-row">
+      <div class="comp-cell left"><span class="comp-icon">📉</span> No-show rate stays at 10–15%. Lost revenue every week.</div>
+      <div class="comp-cell right"><span class="comp-icon">🗓</span> Cancellations surface early. Slot can be backfilled before the day.</div>
+    </div>
   </div>
 
+  <hr>
+
+  <!-- Appointment Reminders -->
+  <div class="two-col">
+    <div class="col-left">
+      <div class="section-label">Appointment Reminders</div>
+      <p class="solution-body">
+        Dentra automatically sends a reminder 24 hours before every appointment — and a final nudge 2 hours before if the patient still hasn't confirmed. One tap to confirm or cancel. That's it.
+      </p>
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">24-hour reminder sent automatically</div>
+          <div class="step-body">Patient receives a WhatsApp the day before. Confirm or cancel in one tap — no calls, no back-and-forth.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">2-hour nudge if not yet confirmed</div>
+          <div class="step-body">If the patient hasn't responded, a final reminder goes out the morning of. Most patients confirm — or cancel early enough to backfill.</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Cancellations notify the receptionist instantly</div>
+          <div class="step-body">When a patient cancels, the front desk gets a WhatsApp immediately — with enough time to fill the slot from the waitlist.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reminder phone mock -->
+    <div class="col-right">
+      <div class="section-label" style="text-align:center; margin-bottom:8px;">What the patient sees</div>
+      <div class="phone-mock">
+        <div class="phone-header">
+          <div class="phone-avatar">CD</div>
+          <div>
+            <div class="phone-header-name">City Dental</div>
+            <div class="phone-header-sub">WhatsApp Business ✓</div>
+          </div>
+        </div>
+        <div class="phone-body">
+
+          <div class="bubble bubble-in">
+            Hi Sarah! Just a reminder — you have an appointment tomorrow at 2:00 pm with Dr Williams at City Dental.
+            <div class="bubble-time">9:00 am</div>
+            <div class="btn-row">
+              <div class="wa-btn">✅ Confirm</div>
+              <div class="wa-btn">❌ Cancel</div>
+            </div>
+          </div>
+
+          <div class="bubble bubble-out">
+            ✅ Confirm
+            <div class="bubble-time-out">9:02 am ✓✓</div>
+          </div>
+
+          <div class="bubble bubble-in">
+            Perfect — see you tomorrow at 2:00 pm! 😊
+            <div class="bubble-time">9:02 am</div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
   <!-- CTA -->
-  <div class="cta-block">
-    <p>Want to see Dentra running live in your clinic? We'll walk you through a demo.</p>
-    <a class="cta-link" href="mailto:ome450901@gmail.com">Get in touch</a>
+  <div class="cta-section">
+    <div class="cta-text">
+      <strong>Interested in a pilot?</strong><br>
+      Dentra is currently onboarding its first dental practices. If you'd like to see how it works — or run a 60-day trial at your clinic — get in touch.
+    </div>
+    <div class="cta-right">
+      <a class="cta-email" href="mailto:hello@dentra.com.au">hello@dentra.com.au</a>
+      <div class="cta-price">$297 / month &nbsp;·&nbsp; 60-day money-back guarantee</div>
+    </div>
   </div>
 
   <!-- Footer note -->
