@@ -1,330 +1,733 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dentra — WhatsApp Assistant for Dental Clinics</title>
-  <meta name="description" content="Dentra helps dental clinics recover missed calls and reduce no-shows via WhatsApp — automatically, without replacing your receptionist." />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dentra — WhatsApp Patient Recovery for Dental Clinics</title>
+<meta name="description" content="Dentra helps dental clinics recover missed calls and reduce no-shows via WhatsApp — automatically, without replacing your receptionist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --teal: #0D9488;
-      --teal-dark: #0F766E;
-      --teal-light: #CCFBF1;
-      --slate: #1E293B;
-      --muted: #64748B;
-      --bg: #F8FAFC;
-      --white: #FFFFFF;
-    }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f4f3f0;
+    color: #1a1a1a;
+    font-size: 13.5px;
+    line-height: 1.6;
+  }
 
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--slate);
-      line-height: 1.6;
-    }
+  /* ── Top bar ── */
+  .topbar {
+    background: #075e54;
+    color: #fff;
+    text-align: center;
+    padding: 10px 24px;
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+  }
+  .topbar a {
+    color: #9de0d8;
+    text-decoration: none;
+    font-weight: 500;
+  }
+  .topbar a:hover { text-decoration: underline; }
 
-    a { color: var(--teal); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+  .page {
+    max-width: 900px;
+    margin: 32px auto;
+    padding: 52px 60px 44px;
+    background: #fff;
+    box-shadow: 0 2px 24px rgba(0,0,0,0.08);
+    border-radius: 4px;
+  }
 
-    /* NAV */
-    nav {
-      background: var(--white);
-      border-bottom: 1px solid #E2E8F0;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 60px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .logo {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--teal);
-      letter-spacing: -0.5px;
-    }
-    .nav-contact {
-      font-size: 0.875rem;
-      color: var(--muted);
-    }
+  @media (max-width: 700px) {
+    .page { margin: 0; padding: 32px 24px 32px; border-radius: 0; }
+    .two-col { flex-direction: column; }
+    .col-right { flex: unset; width: 100%; }
+    .stats-row { flex-direction: column; }
+  }
 
-    /* HERO */
-    .hero {
-      text-align: center;
-      padding: 80px 24px 64px;
-      max-width: 720px;
-      margin: 0 auto;
-    }
-    .hero-badge {
-      display: inline-block;
-      background: var(--teal-light);
-      color: var(--teal-dark);
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 999px;
-      margin-bottom: 20px;
-    }
-    h1 {
-      font-size: clamp(1.75rem, 5vw, 2.75rem);
-      font-weight: 800;
-      line-height: 1.2;
-      letter-spacing: -0.5px;
-      margin-bottom: 20px;
-      color: var(--slate);
-    }
-    h1 span { color: var(--teal); }
-    .hero p {
-      font-size: 1.125rem;
-      color: var(--muted);
-      max-width: 560px;
-      margin: 0 auto 36px;
-    }
-    .cta-btn {
-      display: inline-block;
-      background: var(--teal);
-      color: var(--white);
-      font-size: 1rem;
-      font-weight: 600;
-      padding: 14px 32px;
-      border-radius: 8px;
-      transition: background 0.15s;
-    }
-    .cta-btn:hover { background: var(--teal-dark); text-decoration: none; }
+  /* ── Header ── */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e8e8e8;
+  }
 
-    /* PROBLEMS */
-    .section {
-      padding: 64px 24px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .section-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 8px;
-    }
-    h2 {
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 700;
-      letter-spacing: -0.3px;
-      margin-bottom: 12px;
-    }
-    .section-intro {
-      color: var(--muted);
-      font-size: 1rem;
-      margin-bottom: 40px;
-      max-width: 600px;
-    }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 400;
+    color: #b0b0b0;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
 
-    /* CARDS */
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-    }
-    .card {
-      background: var(--white);
-      border: 1px solid #E2E8F0;
-      border-radius: 12px;
-      padding: 28px;
-    }
-    .card-icon {
-      font-size: 1.75rem;
-      margin-bottom: 12px;
-    }
-    .card h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-    .card p {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.6;
-    }
+  .logo-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 11.5px;
+    font-style: italic;
+    color: #999;
+    margin-top: 5px;
+    font-weight: 300;
+  }
 
-    /* HOW IT WORKS */
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-    }
-    .step {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-    .step-num {
-      width: 36px;
-      height: 36px;
-      background: var(--teal-light);
-      color: var(--teal-dark);
-      font-weight: 700;
-      font-size: 0.875rem;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .step h3 { font-size: 0.95rem; font-weight: 700; }
-    .step p { font-size: 0.875rem; color: var(--muted); }
+  .header-right {
+    text-align: right;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #aaa;
+    font-weight: 400;
+    line-height: 1.7;
+    text-transform: uppercase;
+  }
 
-    /* DIVIDER */
-    hr { border: none; border-top: 1px solid #E2E8F0; margin: 0 24px; }
+  /* ── Section label ── */
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: #c0392b;
+    margin-bottom: 10px;
+  }
 
-    /* CONTACT */
-    .contact-section {
-      background: var(--white);
-      border-top: 1px solid #E2E8F0;
-      text-align: center;
-      padding: 64px 24px;
-    }
-    .contact-section h2 { margin-bottom: 12px; }
-    .contact-section p { color: var(--muted); margin-bottom: 24px; }
-    .contact-email {
-      display: inline-block;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--teal);
-      padding: 12px 28px;
-      border: 2px solid var(--teal);
-      border-radius: 8px;
-      transition: background 0.15s, color 0.15s;
-    }
-    .contact-email:hover {
-      background: var(--teal);
-      color: var(--white);
-      text-decoration: none;
-    }
+  /* ── Problem section ── */
+  .problem-section {
+    margin-bottom: 22px;
+  }
 
-    /* FOOTER */
-    footer {
-      text-align: center;
-      padding: 24px;
-      font-size: 0.8rem;
-      color: #94A3B8;
-      border-top: 1px solid #E2E8F0;
-    }
-  </style>
+  .problem-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #1a1a1a;
+    margin-bottom: 12px;
+  }
+
+  .problem-heading em {
+    color: #c0392b;
+    font-style: italic;
+  }
+
+  .problem-body {
+    font-size: 13px;
+    color: #444;
+    max-width: 620px;
+    line-height: 1.65;
+  }
+
+  /* ── Stats ── */
+  .stats-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    margin-bottom: 24px;
+  }
+
+  .stat-box {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 14px 12px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: #c0392b;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-desc {
+    font-size: 11.5px;
+    color: #555;
+    line-height: 1.4;
+    margin-bottom: 4px;
+  }
+
+  .stat-source {
+    font-size: 9.5px;
+    color: #999;
+    line-height: 1.4;
+  }
+
+  /* ── Divider ── */
+  hr {
+    border: none;
+    border-top: 1px solid #e8e8e8;
+    margin: 20px 0;
+  }
+
+  /* ── Two-column layout ── */
+  .two-col {
+    display: flex;
+    gap: 28px;
+    margin-bottom: 20px;
+  }
+
+  .col-left {
+    flex: 1;
+  }
+
+  .col-right {
+    flex: 0 0 200px;
+  }
+
+  /* ── Solution text ── */
+  .solution-body {
+    font-size: 13px;
+    color: #333;
+    line-height: 1.65;
+    margin-bottom: 16px;
+  }
+
+  /* ── Steps ── */
+  .step {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+
+  .step-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #c0392b;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 2px;
+  }
+
+  .step-body {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.5;
+  }
+
+  /* ── Feature badges ── */
+  .badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-top: 16px;
+  }
+
+  .badge {
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 4px 11px;
+    font-size: 11.5px;
+    color: #444;
+  }
+
+  /* ── WhatsApp mock ── */
+  .phone-mock {
+    background: #e5ddd5;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid #ddd;
+    font-size: 11px;
+  }
+
+  .phone-header {
+    background: #075e54;
+    color: #fff;
+    padding: 7px 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .phone-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #128c7e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .phone-header-name {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .phone-header-sub {
+    font-size: 9.5px;
+    color: #9de0d8;
+  }
+
+  .phone-body {
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .bubble {
+    max-width: 88%;
+    border-radius: 8px;
+    padding: 7px 9px;
+    font-size: 11px;
+    line-height: 1.45;
+    position: relative;
+  }
+
+  .bubble-in {
+    background: #fff;
+    align-self: flex-start;
+    border-radius: 0 8px 8px 8px;
+  }
+
+  .bubble-out {
+    background: #dcf8c6;
+    align-self: flex-end;
+    border-radius: 8px 0 8px 8px;
+    text-align: right;
+  }
+
+  .bubble-time {
+    font-size: 8.5px;
+    color: #999;
+    margin-top: 3px;
+    text-align: right;
+  }
+
+  .bubble-time-out {
+    font-size: 8.5px;
+    color: #888;
+    margin-top: 3px;
+  }
+
+  .btn-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 6px;
+    border-top: 1px solid #eee;
+    padding-top: 5px;
+  }
+
+  .wa-btn {
+    color: #00a884;
+    font-size: 11px;
+    font-weight: 500;
+    text-align: center;
+    padding: 3px 0;
+    cursor: pointer;
+  }
+
+  .wa-btn + .wa-btn {
+    border-top: 1px solid #eee;
+    padding-top: 4px;
+  }
+
+  /* WhatsApp Flow form inside mock */
+  .flow-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 2px 0;
+    border: 1px solid #e0e0e0;
+    align-self: flex-start;
+    max-width: 96%;
+  }
+
+  .flow-card-header {
+    background: #075e54;
+    color: #fff;
+    padding: 6px 9px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+  }
+
+  .flow-card-body {
+    padding: 8px 9px;
+  }
+
+  .flow-field {
+    margin-bottom: 6px;
+  }
+
+  .flow-field-label {
+    font-size: 9px;
+    color: #888;
+    margin-bottom: 2px;
+    font-weight: 500;
+  }
+
+  .flow-field-val {
+    background: #f5f5f5;
+    border-radius: 4px;
+    padding: 3px 6px;
+    font-size: 10.5px;
+    color: #1a1a1a;
+    border: 1px solid #e0e0e0;
+  }
+
+  .flow-submit-btn {
+    background: #00a884;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    padding: 6px;
+    border-radius: 5px;
+    margin-top: 8px;
+  }
+
+  /* ── Comparison table ── */
+  .comparison {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 14px;
+  }
+
+  .comp-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .comp-col-header {
+    padding: 8px 14px;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .comp-col-header.without {
+    background: #fafafa;
+    color: #999;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .comp-col-header.with {
+    background: #fafafa;
+    color: #c0392b;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .comp-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid #eee;
+  }
+
+  .comp-row:first-of-type {
+    border-top: none;
+  }
+
+  .comp-cell {
+    padding: 9px 14px;
+    font-size: 12px;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .comp-cell.left {
+    color: #777;
+    background: #fff;
+    border-right: 1px solid #eee;
+  }
+
+  .comp-cell.right {
+    color: #333;
+    background: #fff;
+  }
+
+  .comp-icon {
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  /* ── CTA block ── */
+  .cta-block {
+    background: #f9f9f7;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 24px 28px;
+    text-align: center;
+    margin: 20px 0 14px;
+  }
+
+  .cta-block p {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+
+  .cta-link {
+    display: inline-block;
+    background: #075e54;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    letter-spacing: 0.01em;
+  }
+
+  .cta-link:hover { background: #054d45; }
+
+  /* ── Footer ── */
+  .footer-note {
+    font-size: 9.5px;
+    color: #aaa;
+    line-height: 1.5;
+    margin-bottom: 14px;
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: #ccc;
+    font-weight: 400;
+  }
+
+  @media print {
+    .topbar { display: none; }
+    .cta-block { display: none; }
+    body { background: #fff; }
+    .page { margin: 0; box-shadow: none; border-radius: 0; padding: 20px 28px; }
+  }
+</style>
 </head>
 <body>
 
-  <nav>
-    <div class="logo">Dentra</div>
-    <div class="nav-contact"><a href="mailto:ome450901@gmail.com">ome450901@gmail.com</a></div>
-  </nav>
+<div class="topbar">
+  Want to see Dentra in action? &nbsp;
+  <a href="mailto:ome450901@gmail.com">ome450901@gmail.com</a>
+</div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-badge">WhatsApp for Dental Clinics</div>
-    <h1>Never miss a patient<br><span>who tried to call you</span></h1>
-    <p>
-      Dentra automatically follows up on missed calls and sends appointment reminders via WhatsApp — so your clinic fills its schedule without extra work.
-    </p>
-    <a class="cta-btn" href="mailto:ome450901@gmail.com">Get in touch</a>
-  </section>
+<div class="page">
 
-  <hr />
-
-  <!-- PROBLEMS WE SOLVE -->
-  <section class="section">
-    <div class="section-label">The problem</div>
-    <h2>Two things silently cost every clinic</h2>
-    <p class="section-intro">Most clinics lose revenue from the same two issues — and neither requires new software to fix.</p>
-    <div class="cards">
-      <div class="card">
-        <div class="card-icon">📵</div>
-        <h3>Missed calls = lost patients</h3>
-        <p>A patient calls, gets no answer, and books with a competitor. Dentra sends them a WhatsApp within 15 seconds so you stay top of mind.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🪑</div>
-        <h3>No-shows waste chair time</h3>
-        <p>Empty slots are the most expensive thing in dentistry. Automated reminders at 24h and 2h — with a single-tap confirm button — slash the no-show rate.</p>
-      </div>
+  <!-- Header -->
+  <div class="header">
+    <div>
+      <div class="logo">Dentra.</div>
+      <div class="logo-sub">Every missed call is a patient someone else will see.</div>
     </div>
-  </section>
+    <div class="header-right">
+      WhatsApp-Powered<br>
+      Patient Recovery<br>
+      for Dental Clinics
+    </div>
+  </div>
 
-  <hr />
+  <!-- The Problem -->
+  <div class="problem-section">
+    <div class="section-label">The Problem</div>
+    <div class="problem-heading">
+      Dental clinics are quietly losing<br>
+      <em>tens of thousands of dollars</em> every year —<br>
+      without realising it.
+    </div>
+    <div class="problem-body" style="margin-top:10px;">
+      When a patient calls and nobody answers, they don't wait. They open Google and book with the
+      next clinic. When a booked patient doesn't show up, that chair sits empty and unbillable. Both
+      problems are preventable. Neither gets enough attention — because they're invisible until you do the numbers.
+    </div>
+  </div>
 
-  <!-- HOW IT WORKS -->
-  <section class="section">
-    <div class="section-label">How it works</div>
-    <h2>Simple for your team, seamless for patients</h2>
-    <p class="section-intro">Dentra runs quietly in the background. No new app for your receptionist, no new app for the patient.</p>
-    <div class="steps">
+  <div class="stats-row">
+    <div class="stat-box">
+      <div class="stat-number">20–38%</div>
+      <div class="stat-desc">of inbound calls go unanswered at dental practices</div>
+      <div class="stat-source">Industry surveys &amp; dental association data</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">10–15%</div>
+      <div class="stat-desc">average no-show rate across dental practices</div>
+      <div class="stat-source">Peer-reviewed dental practice studies</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-number">$30K+</div>
+      <div class="stat-desc">estimated annual revenue lost per practice from these two issues alone</div>
+      <div class="stat-source">Based on ADA financial benchmarks</div>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- Solution + Mock -->
+  <div class="two-col">
+    <div class="col-left">
+      <div class="section-label">The Solution</div>
+      <p class="solution-body">
+        Dentra is a <strong>WhatsApp-based assistant</strong> for dental clinics. The moment a call
+        is missed, it automatically reaches out to the patient — recovering the conversation before
+        they book elsewhere. Your receptionist stays in control. Nothing about how you run the clinic needs to change.
+      </p>
+
       <div class="step">
         <div class="step-num">1</div>
-        <h3>Missed call detected</h3>
-        <p>A call goes unanswered. Dentra catches the number automatically.</p>
+        <div class="step-content">
+          <div class="step-title">Missed call detected</div>
+          <div class="step-body">Your landline forwards missed calls to Dentra. Within 15 seconds, the patient receives a WhatsApp from your clinic's number.</div>
+        </div>
       </div>
+
       <div class="step">
         <div class="step-num">2</div>
-        <h3>WhatsApp sent in seconds</h3>
-        <p>The patient receives a friendly message offering to book or request a callback.</p>
+        <div class="step-content">
+          <div class="step-title">Patient books via native WhatsApp form</div>
+          <div class="step-body">Patient taps "Book appointment" — a native WhatsApp form opens. They fill in name, date, and preferred time in one go. No back-and-forth.</div>
+        </div>
       </div>
+
       <div class="step">
         <div class="step-num">3</div>
-        <h3>Patient books via chat</h3>
-        <p>A guided conversation collects name, preferred time, and reason for visit.</p>
+        <div class="step-content">
+          <div class="step-title">Receptionist confirms</div>
+          <div class="step-body">Booking requests arrive as a structured WhatsApp notification. One tap confirms — patient receives instant confirmation.</div>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <h3>Receptionist confirms</h3>
-        <p>The team gets a notification and confirms with one tap. The booking is theirs to control.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">5</div>
-        <h3>Reminders go out automatically</h3>
-        <p>24h and 2h before the appointment, the patient gets a reminder with confirm/cancel buttons.</p>
+
+      <div class="badges">
+        <div class="badge">✓ No app for patients</div>
+        <div class="badge">✓ No new software for staff</div>
+        <div class="badge">✓ Receptionist stays in control</div>
+        <div class="badge">✓ After-hours aware</div>
+        <div class="badge">✓ Privacy compliant</div>
       </div>
     </div>
-  </section>
 
-  <hr />
+    <!-- WhatsApp Mock -->
+    <div class="col-right">
+      <div class="section-label" style="text-align:center; margin-bottom:8px;">What the patient sees</div>
+      <div class="phone-mock">
+        <div class="phone-header">
+          <div class="phone-avatar">CD</div>
+          <div>
+            <div class="phone-header-name">City Dental</div>
+            <div class="phone-header-sub">WhatsApp Business ✓</div>
+          </div>
+        </div>
+        <div class="phone-body">
 
-  <!-- WHAT WE DON'T DO -->
-  <section class="section">
-    <div class="section-label">Our philosophy</div>
-    <h2>We assist the receptionist — we don't replace them</h2>
-    <div class="cards">
-      <div class="card">
-        <div class="card-icon">✅</div>
-        <h3>Humans confirm every booking</h3>
-        <p>Dentra creates a booking request. Your receptionist reviews and confirms before anything is locked in.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">💬</div>
-        <h3>Everything stays in WhatsApp</h3>
-        <p>No new apps for patients. They use the messaging app already on their phone.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon">🔒</div>
-        <h3>Opt-out respected</h3>
-        <p>Any patient can reply STOP at any time. No messages are ever sent to opted-out numbers.</p>
+          <!-- Bot initial message with buttons -->
+          <div class="bubble bubble-in">
+            Hi! We just missed your call at City Dental. How can we help?
+            <div class="bubble-time">9:14 am</div>
+            <div class="btn-row">
+              <div class="wa-btn">📅 Book appointment</div>
+              <div class="wa-btn">📞 Call me back</div>
+            </div>
+          </div>
+
+          <!-- Patient taps book -->
+          <div class="bubble bubble-out">
+            📅 Book appointment
+            <div class="bubble-time-out">9:15 am ✓✓</div>
+          </div>
+
+          <!-- WhatsApp Flow form -->
+          <div class="flow-card">
+            <div class="flow-card-header">📋 Request an Appointment</div>
+            <div class="flow-card-body">
+              <div class="flow-field">
+                <div class="flow-field-label">Full name</div>
+                <div class="flow-field-val">Sarah Johnson</div>
+              </div>
+              <div class="flow-field">
+                <div class="flow-field-label">Preferred date</div>
+                <div class="flow-field-val">Thu, 17 April</div>
+              </div>
+              <div class="flow-field">
+                <div class="flow-field-label">Preferred time</div>
+                <div class="flow-field-val">Afternoon (2pm–5pm)</div>
+              </div>
+              <div class="flow-submit-btn">Send Request</div>
+            </div>
+          </div>
+
+          <!-- Confirmation -->
+          <div class="bubble bubble-in">
+            Your request has been sent to the team. We'll confirm your appointment shortly. 😊
+            <div class="bubble-time">9:16 am</div>
+          </div>
+
+        </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- CONTACT -->
-  <section class="contact-section">
-    <h2>Want to see it in action?</h2>
-    <p>Reach out and we'll walk you through a live demo for your clinic.</p>
-    <a class="contact-email" href="mailto:ome450901@gmail.com">ome450901@gmail.com</a>
-  </section>
+  <hr>
 
-  <footer>
-    &copy; 2026 Dentra. All rights reserved.
-  </footer>
+  <!-- Comparison table -->
+  <div class="comparison">
+    <div class="comp-header">
+      <div class="comp-col-header without">✕ &nbsp;Without Dentra</div>
+      <div class="comp-col-header with">✓ &nbsp;With Dentra</div>
+    </div>
+    <div class="comp-row">
+      <div class="comp-cell left"><span class="comp-icon">🔕</span> Call missed. Patient hears nothing.</div>
+      <div class="comp-cell right"><span class="comp-icon">💬</span> Patient gets a WhatsApp within 15 seconds.</div>
+    </div>
+    <div class="comp-row">
+      <div class="comp-cell left"><span class="comp-icon">📍</span> Patient Googles the next clinic and books there.</div>
+      <div class="comp-cell right"><span class="comp-icon">📅</span> Patient books via a native WhatsApp form — name, date, time. Done.</div>
+    </div>
+    <div class="comp-row">
+      <div class="comp-cell left"><span class="comp-icon">💸</span> Empty chair. Lost revenue. No recovery.</div>
+      <div class="comp-cell right"><span class="comp-icon">✅</span> Slot filled. Receptionist notified. Revenue protected.</div>
+    </div>
+  </div>
 
+  <!-- CTA -->
+  <div class="cta-block">
+    <p>Want to see Dentra running live in your clinic? We'll walk you through a demo.</p>
+    <a class="cta-link" href="mailto:ome450901@gmail.com">Get in touch</a>
+  </div>
+
+  <!-- Footer note -->
+  <div class="footer-note">
+    † Statistics sourced from peer-reviewed articles, industry surveys, and ADA-related financial benchmarks. The
+    $30K+ annual loss estimate is based on a modest practice with moderate call and no-show volumes at average fee
+    levels — larger practices scale proportionally.
+  </div>
+
+  <div class="footer-logo">Dentra.</div>
+
+</div>
 </body>
 </html>
